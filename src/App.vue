@@ -47,7 +47,7 @@
       <!-- 1. 使用插槽的tip框;插槽由三部分组成，没有传值的话就是默认的插槽，特别注意，记得用  v-slot:插槽名字  指定插槽的名字
            2. 指定宽度和高度-->
       <yzhButton type="primary" @click="visiable = true">按钮</yzhButton>
-      <yzh-dialog width="80%" top="300px" :visiable="visiable" @close="close">
+      <yzhDialog width="30%" top="100px" :visiable="visiable" @close="close">
         <template v-slot:title>
           <h3> 温馨提醒</h3>
         </template>
@@ -58,11 +58,21 @@
             <li>3</li>
           </ul>
         </template>
-        <template v-slot:footer>
-          <yzhButton type="primary" @click="visiable = false">确定</yzhButton>
+        <!-- <template v-slot:footer>
+          <yzhButton class="yzhButton" type="primary" @click="visiable = false">确定</yzhButton>
           <yzhButton @click="visiable = false">取消</yzhButton>
-        </template>
-      </yzh-dialog>
+        </template> -->
+      </yzhDialog>
+    </div>
+    <div>
+      <yzhInput placeholder="请输入内容" v-model="username" :clearable="true" />
+      <yzhInput placeholder="请输入内容2" v-model="username" :clearable="true" />
+      <yzhInput placeholder="请输入内容3" showPassword type="password" v-model="username" :clearable="true" />
+    </div>
+    <div id="switch-container">
+      <yzhSwitch v-model="active"></yzhSwitch>
+      <!-- 自定义颜色 -->
+      <yzhSwitch v-model="active" activeColor="green" inactiveColor="red"></yzhSwitch>
     </div>
   </div>
 </template>
@@ -71,7 +81,9 @@
 export default {
   data() {
     return {
-      visiable: false
+      visiable: false,
+      username: '',
+      active: false
     }
   },
   methods: {
@@ -93,5 +105,6 @@ export default {
   .yzhButton {
     margin-right: 20px;
   }
+
 }
 </style>

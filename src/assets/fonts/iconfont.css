@@ -289,6 +289,10 @@
   content: "\e6d9";
 }
 
+.one-icon-cancel:before {
+  content: "\2715";
+}
+
 .one-icon-telephone:before {
   content: "\e6da";
 }

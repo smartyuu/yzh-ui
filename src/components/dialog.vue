@@ -1,33 +1,35 @@
 <template>
-    <div class="yzh-dialog" v-show="visiable">
-        <div id="dialog-container">
-            <!-- self,表示只点击自己才触发，这样不会冒泡 -->
-            <div class="yzh-dialog_wrapper" @click.self="handleClose">
-                <div class=" yzh-dialog" :style="{ width, top }">
-                    <div class="yzh-dialog_header">
-                        <slot name="title">
-                            <span class="yzh-dialog_title">{{ title }}</span>
-                        </slot>
-                        <button class="yzh-dialog_headerbtn" @click="handleClose">
-                            <i class="one-icon-close"></i>
-                        </button>
-                    </div>
-                    <div class="yzh-dialog_body">
-                        <slot name="body">
+    <transition name="dialog-fade">
+        <div class="yzh-dialog" v-show="visiable">
+            <div id="dialog-container">
+                <!-- self,表示只点击自己才触发，这样不会冒泡 -->
+                <div class="yzh-dialog_wrapper" @click.self="handleClose">
+                    <div class=" yzh-dialog" :style="{ width, top }">
+                        <div class="yzh-dialog_header">
+                            <slot name="title">
+                                <span class="yzh-dialog_title">{{ title }}</span>
+                            </slot>
+                            <button class="yzh-dialog_headerbtn" @click="handleClose">
+                                <i class="one-icon-close"></i>
+                            </button>
+                        </div>
+                        <div class="yzh-dialog_body">
+                            <slot name="body">
 
-                        </slot>
+                            </slot>
+                        </div>
+                        <div class="yzh-dialog_footer">
+                            <slot name="footer">
+                                <yzhButton class="yzhButton">取消</yzhButton>
+                                <yzhButton type="primary">确定</yzhButton>
+                            </slot>
+                        </div>
                     </div>
-                    <div class="yzh-dialog_footer">
-                        <slot name="footer">
-                            <yzhButton class="yzhButton">取消</yzhButton>
-                            <yzhButton type="primary">确定</yzhButton>
-                        </slot>
-                    </div>
+
                 </div>
-
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 <script>
 export default {
@@ -126,22 +128,23 @@ export default {
 }
 
 .dialog-fade-enter-active {
-    animation: fade .3s;
+    animation: fade 0.3s;
 }
 
 .dialog-fade-leave-active {
-    animation: fade .3s reverse;
+    animation: fade 0.3s reverse;
 }
 
 @keyframes fade {
     0% {
+        // transform: translateY(-20px);
         opacity: 0;
-        transform: translateY(-20px);
     }
 
     100% {
+        // transform: translateY(20px);
         opacity: 1;
-        transform: translateY(0);
+
     }
 }
 </style>
