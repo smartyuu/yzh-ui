@@ -4,6 +4,7 @@ import yzhButton from './components/button.vue'
 import yzhDialog from './components/dialog.vue'
 import yzhInput from './components/input.vue'
 import yzhSwitch from './components/switch.vue'
+import yzhRadio from './components/radio.vue'
 import './assets/fonts/iconfont.css'
 Vue.config.productionTip = false
 Vue.component(yzhButton.name, yzhButton)

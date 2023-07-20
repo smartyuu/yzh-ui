@@ -50,7 +50,7 @@ export default {
     },
 }
 </script>
-<style lang="scss" setup>
+<style lang="scss" scoped>
 .yzh-switch {
     display: inline-block;
     align-items: center;
