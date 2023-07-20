@@ -78,11 +78,16 @@
       <yzhRadio label="1" v-model="gender">male</yzhRadio>
       <yzhRadio label="0" v-model="gender">female</yzhRadio>
     </div>
-    <yzhRadioGroup v-model="gender">
-      <yzhRadio label="3">男</yzhRadio>
-      <yzhRadio label="4">女</yzhRadio>
-    </yzhRadioGroup>
-    <yzhCheckBox></yzhCheckBox>
+    <div>
+      <yzhRadioGroup v-model="gender">
+        <yzhRadio label="3">男</yzhRadio>
+        <yzhRadio label="4">女</yzhRadio>
+      </yzhRadioGroup>
+    </div>
+    <div>
+      <yzhCheckBox v-model="checkboxActive">是否选中</yzhCheckBox>
+
+    </div>
   </div>
 </template>
 
@@ -94,7 +99,8 @@ export default {
       username: '',
       active: false,
       gender: '1',
-      label: ''
+      label: '',
+      checkboxActive: false
     }
   },
   methods: {

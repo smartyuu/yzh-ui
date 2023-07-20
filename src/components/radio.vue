@@ -58,17 +58,17 @@ export default {
     cursor: pointer;
     display: inline-block;
     white-space: nowrap;
-    outline: nyzh;
+    outline: none;
     font-size: 14px;
     margin-right: 30px;
-    -moz-user-select: nyzh;
-    -webkit-user-select: nyzh;
-    -moz-user-select: nyzh;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 
     .yzh-radio_input {
         white-space: nowrap;
         cursor: pointer;
-        outline: nyzh;
+        outline: none;
         display: inline-block;
         line-height: 1;
         position: relative;
@@ -101,7 +101,7 @@ export default {
 
         .yzh-radio_original {
             opacity: 0;
-            outline: nyzh;
+            outline: none;
             position: absolute;
             z-index: -1;
             top: 0;
