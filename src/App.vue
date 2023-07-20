@@ -74,6 +74,15 @@
       <!-- 自定义颜色 -->
       <yzhSwitch v-model="active" activeColor="green" inactiveColor="red"></yzhSwitch>
     </div>
+    <div id="radio-container">
+      <yzhRadio label="1" v-model="gender">male</yzhRadio>
+      <yzhRadio label="0" v-model="gender">female</yzhRadio>
+    </div>
+    <yzhRadioGroup v-model="gender">
+      <yzhRadio label="3">男</yzhRadio>
+      <yzhRadio label="4">女</yzhRadio>
+    </yzhRadioGroup>
+    <yzhCheckBox></yzhCheckBox>
   </div>
 </template>
 
@@ -83,7 +92,9 @@ export default {
     return {
       visiable: false,
       username: '',
-      active: false
+      active: false,
+      gender: '1',
+      label: ''
     }
   },
   methods: {

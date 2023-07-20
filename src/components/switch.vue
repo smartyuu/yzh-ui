@@ -47,7 +47,7 @@ export default {
     mounted() {
         // 修改开关颜色
         this.setColor()
-    },
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -90,8 +90,8 @@ export default {
 // 选中样式
 .is-checked {
     .yzh-switch_core {
-        border-color: #409eff;
-        background-color: #409eff;
+        border-color: #ff8640;
+        background-color: #ff8640;
 
         .yzh-switch_button {
             transform: translateX(20px);
