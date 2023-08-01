@@ -16,7 +16,7 @@ Vue.component(yzhSwitch.name, yzhSwitch)
 Vue.component(yzhRadio.name, yzhRadio)
 Vue.component(yzhRadioGroup.name, yzhRadioGroup)
 Vue.component(yzhCheckBox.name, yzhCheckBox)
-
+// test pr
 new Vue({
   render: h => h(App),
 }).$mount('#app')
