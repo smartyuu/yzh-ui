@@ -1,10 +1,10 @@
 <template>
     <transition name="dialog-fade">
-        <div class="yzh-dialog" v-show="visiable">
+        <div class="yzh-dialog" v-show="visible">
             <div id="dialog-container">
                 <!-- self,表示只点击自己才触发，这样不会冒泡 -->
                 <div class="yzh-dialog_wrapper" @click.self="handleClose">
-                    <div class=" yzh-dialog" :style="{ width, top }">
+                    <div class="yzh-dialog" :style="{ width, top }">
                         <div class="yzh-dialog_header">
                             <slot name="title">
                                 <span class="yzh-dialog_title">{{ title }}</span>
@@ -14,9 +14,7 @@
                             </button>
                         </div>
                         <div class="yzh-dialog_body">
-                            <slot name="body">
-
-                            </slot>
+                            <slot name="body"></slot>
                         </div>
                         <div class="yzh-dialog_footer">
                             <slot name="footer">
@@ -25,14 +23,16 @@
                             </slot>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </transition>
 </template>
+
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
     name: 'yzhDialog',
     props: {
         title: {
@@ -47,7 +47,7 @@ export default {
             type: String,
             default: '300px'
         },
-        visiable: {
+        visible: {
             type: Boolean,
             default: false
         }
@@ -55,12 +55,15 @@ export default {
     methods: {
         handleClose() {
             // 点击子组件不能直接修改父组件的数据，我们应该触发父组件身上的事件，把新的值传递给父组件（$emit），然后在父组件身上修改
-            // this.visiable = false
-            this.$emit('close', false)
+            // this.visible = false;
+            this.$emit('update:visible', false);
         }
+
+
     }
-}
+});
 </script>
+
 <style lang="scss" scoped>
 .yzh-dialog_wrapper {
     position: fixed;
@@ -103,7 +106,7 @@ export default {
                 font-size: 16px;
 
                 .one-icon-close {
-                    color: 909399
+                    color: 909399;
                 }
             }
         }
@@ -144,7 +147,6 @@ export default {
     100% {
         // transform: translateY(20px);
         opacity: 1;
-
     }
 }
 </style>

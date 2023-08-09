@@ -4,18 +4,22 @@
         <slot></slot>
     </div>
 </template>
+
 <script>
+import { provide, ref } from 'vue';
+
 export default {
     name: 'yzhRadioGroup',
-    provide() {
-        return {//我是爷爷，provide给孙子；可以通过这个属性监测是否被group包裹
-            RadioGroup: this
-        }
-    },
-    props: {
+    setup() {
+        const radioGroup = ref(null); // 使用 ref 创建响应式引用
+
+        // provide 与 inject 用于实现祖孙组件之间的通信
+        provide('RadioGroup', radioGroup);
+
         // 组件接收到了value值，我们需要触发这个组件的input事件
-        // provide 与 inject  用来做祖孙之间得组件通讯
-        value: null
+        return {
+            value: ref(null) // 使用 ref 创建响应式引用
+        };
     }
-}
+};
 </script>

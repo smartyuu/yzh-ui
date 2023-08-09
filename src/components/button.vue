@@ -6,7 +6,7 @@
         'is-disabled': disabled
     }]" :disabled="disabled" @click="handleClick">
         <i v-if="icon" :class="icon"></i>
-        <!-- 如何没有传入任何的内容,span就会被隐藏掉，这是为了防止有多余的空格  -->
+        <!-- 如果没有传入任何内容，span 将被隐藏以避免额外的空格 -->
         <span v-if="$slots.default">
             <slot></slot>
         </span>
@@ -14,43 +14,48 @@
 </template>
 
 <script>
+// import { defineProps, defineEmits } from 'vue';
+
 export default {
     name: 'yzhButton',
-    // 封装一个通用的组件，会对props进行一个约束校验
+    setup(props, { emit }) {
+        const handleClick = (e) => {
+            emit('click', e);
+        };
+
+        return {
+            handleClick
+        };
+    },
     props: {
         type: {
-            // 数据类型：字符串
             type: String,
             default: 'default',
         },
         plain: {
             type: Boolean,
-            default: false
+            default: false,
         },
         round: {
             type: Boolean,
-            default: false
+            default: false,
         },
         circle: {
             type: Boolean,
-            default: false
+            default: false,
         },
         icon: {
             type: String,
-            default: ''
-        }, disabled: {
+            default: '',
+        },
+        disabled: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
-    methods: {
-        handleClick(e) {
-            // 传给父组件这个click事件
-            this.$emit('click', e)
-        }
-    },
-}
+};
 </script>
+ 
 
 <style lang="scss" scoped>
 .yzh-button {

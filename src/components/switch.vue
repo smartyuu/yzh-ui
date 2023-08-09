@@ -1,55 +1,72 @@
+
 <template>
     <div>
         <!-- :class="{ 'is-checked': value }" 中的 value 是指代组件的 value 属性，也就是通过 props 接收到的父组件传递的值 -->
-        <div class="yzh-switch" :class="{ 'is-checked': value }" @click="handleClick">
+        <div class="yzh-switch" :class="{ 'is-checked': modelValue }" @click="handleClick">
             <!-- $ref:在子组件访问父组件的元素或组件实例，在父组件可以使用$refs.core来访问这个元素
             ref 的作用就是将一个元素或组件的引用暴露给父组件，让父组件可以通过 $refs 来访问或操作这个元素或组件
             -->
             <span class="yzh-switch_core" ref="core">
-                <span class="yzh-switch_button"></span>
+                <span class="yzh-switch_button" aria-hidden="true"></span>
+                <span class="yzh-switch_label">{{ modelValue ? statue : transStatue }}</span>
             </span>
         </div>
     </div>
 </template>
+
 <script>
+import { nextTick } from 'vue';
+
 export default {
     name: 'yzhSwitch',
     props: {
-        // props 是用于接收父组件传递数据的一个机制，它的值是只读的，不能直接在子组件中修改
-        value: {
+        modelValue: {
             type: Boolean,
             default: false
         },
-        activeColor: {//按钮激活
+        activeColor: {
             type: String,
             default: ''
         },
-        inactiveColor: {//按钮未激活
+        inactiveColor: {
+            type: String,
+            default: ''
+        },
+        statue: {
+            type: String,
+            default: ''
+        },
+        transStatue: {
             type: String,
             default: ''
         }
+    },
+    emits: ['update:modelValue'],
+    mounted() {
+        this.setColor();
     },
     methods: {
         async handleClick() {
-            this.$emit('input', !this.value)
-            // 这里需要注意的是我们需要在父组件修改完数据之后再调用setcolor修改
-            await this.$nextTick()//等待value发生变化后再setColor
-            this.setColor()
+            this.$emit('update:modelValue', !this.modelValue);
+            await nextTick(); // 等待 modelValue 更新
+            this.setColor();
         },
         setColor() {
             if (this.activeColor || this.inactiveColor) {
-                let color = this.value ? this.activeColor : this.inactiveColor
-                this.$refs.core.style.borderColor = color
-                this.$refs.core.style.backgroundColor = color
+                const color = this.modelValue ? this.activeColor : this.inactiveColor;
+                this.$refs.core.style.borderColor = color;
+                this.$refs.core.style.backgroundColor = color;
             }
         }
     },
-    mounted() {
-        // 修改开关颜色
-        this.setColor()
+    watch: {
+        modelValue() {
+            this.setColor();
+        }
     }
-}
+};
 </script>
+
 <style lang="scss" scoped>
 .yzh-switch {
     display: inline-block;
@@ -71,7 +88,7 @@ export default {
         box-sizing: border-box;
         background: #dcdfe6;
         cursor: pointer;
-        transition: border-color .3s, background-color .3s;
+        transition: border-color 0.3s, background-color 0.3s;
         vertical-align: middle;
 
         .yzh-switch_button {
@@ -79,15 +96,23 @@ export default {
             top: 1px;
             left: 1px;
             border-radius: 100%;
-            transition: all .3s;
+            transition: all 0.3s;
             width: 16px;
             height: 16px;
             background-color: #fff;
         }
+
+        .yzh-switch_label {
+            position: absolute;
+            top: 50%;
+            left: 130%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+            pointer-events: none;
+        }
     }
 }
 
-// 选中样式
 .is-checked {
     .yzh-switch_core {
         border-color: #ff8640;
@@ -99,7 +124,6 @@ export default {
     }
 }
 
-// 隐藏input标签
 .yzh-switch_input {
     position: absolute;
     width: 0;

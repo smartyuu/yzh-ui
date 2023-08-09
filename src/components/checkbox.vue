@@ -1,25 +1,52 @@
-<template>
-    <label class="yzh-checkbox">
-        <span class="yzh-checkbox_input"><span class="yzh-checkbox_inner"></span>
-            <input type="checkbox" class="yzh-checkbox_original">
-        </span>
-        <span class="yzh-checkbox_label">
-            <slot></slot>
-            <template v-if="!$slots.default">{{ label }}</template>
-        </span>
-    </label>
-</template>
 <script>
-export default {
-    name: 'yzhRadioGroup',
+import { defineComponent, inject, computed } from 'vue';
 
+export default defineComponent({
+    name: 'yzhCheckBox',
+    setup(props, { emit }) {
+        const CheckboxGroup = inject('CheckboxGroup');
+
+        const model = computed({
+            get() {
+                return isGroup.value ? CheckboxGroup.value : props.value;
+            },
+            set(value) {
+                if (isGroup.value) {
+                    CheckboxGroup.$emit('input', value);
+                } else {
+                    emit('input', value);
+                }
+                console.log(value);
+            },
+        });
+
+        const isGroup = computed(() => !!CheckboxGroup);
+
+        const isChecked = computed(() => {
+            return isGroup.value ? model.value.includes(props.label) : model.value;
+        });
+
+        return {
+            model,
+            isGroup,
+            isChecked,
+        };
+    },
     props: {
-        checkboxActive: {
+        value: {
             type: Boolean,
-            default: false
-        }
-    }
-}
+            default: false,
+        },
+        label: {
+            type: String,
+            default: '',
+        },
+        name: {
+            type: String,
+            default: '',
+        },
+    },
+});
 </script>
 <style lang="scss" scoped>
 .yzh-checkbox {

@@ -2,18 +2,19 @@
     <div class="yzh-input" :class="{ 'yzh-input_suffix': showSuffix }">
         <input class="yzh-input_inner" :placeholder="placeholder" :class="{ 'is-disabled': disabled }"
             :type="showPassword ? (passwordVisible ? 'text' : 'password') : type" :name="name" :value="value"
-            @input="handleInput" :disabled=disabled>
+            @input="handleInput" :disabled="disabled" />
         <span class="yzh-input_suffix">
             <i class="one-input_icon one-icon-visible" v-if="showPassword" @click="handlePassword"></i>
             <i class="one-input_icon one-icon-cancel" v-if="clearable && value" @click="clear"></i>
         </span>
     </div>
 </template>
+
 <script>
-export default {
+import { defineComponent, ref, computed } from 'vue';
+
+export default defineComponent({
     name: 'yzhInput',
-    components: {
-    },
     props: {
         placeholder: {
             type: String,
@@ -44,30 +45,34 @@ export default {
             default: false
         }
     },
-    watch: {},
-    computed: {
-        showSuffix() {
-            return this.clearable || this.showPassword
-        }
-    },
-    data() {
+    setup(props, { emit }) {
+        const passwordVisible = ref(false);
+
+        const handleInput = (event) => {
+            emit('update:value', event.target.value);
+        };
+
+        const clear = () => {
+            emit('update:value', '');
+        };
+
+        const handlePassword = () => {
+            passwordVisible.value = !passwordVisible.value;
+        };
+
+        const showSuffix = computed(() => {
+            return props.clearable || props.showPassword;
+        });
+
         return {
-            // 显示是否显示密码框
-            passwordVisible: false
-        }
-    },
-    methods: {
-        handleInput(e) {
-            this.$emit('input', e.target.value)
-        },
-        clear() {
-            this.$emit('input', '')
-        },
-        handlePassword() {
-            this.passwordVisible = !this.passwordVisible
-        }
+            passwordVisible,
+            handleInput,
+            clear,
+            handlePassword,
+            showSuffix
+        };
     }
-}
+});
 </script>
 <style lang="scss" scoped>
 .yzh-input {

@@ -1,10 +1,10 @@
 <template>
-    <label class="yzh-radio" :class="{ 'is-checked': label == model }">
+    <label class="yzh-radio" :class="{ 'is-checked': label === modelValue }">
         <span class="yzh-radio_input">
             <span class="yzh-radio_inner"></span>
-            <input class="yzh-radio_original" type="radio" :value="label" :name="name" v-model="model">
+            <input class="yzh-radio_original" type="radio" :value="label" :name="name" v-model="modelValue">
         </span>
-        <span class=" yzh-radio_label">
+        <span class="yzh-radio_label">
             <slot></slot>
             <!-- 如果没有传内容，我们就把label当成内容 -->
             <template v-if="!$slots.default">
@@ -13,43 +13,52 @@
         </span>
     </label>
 </template>
+
 <script>
+import { inject, computed } from 'vue';
+
 export default {
     name: "yzhRadio",
     props: {
         label: {
             type: [String, Number, Boolean],
-            defualt: ''
+            default: ''
         },
         value: null,
         name: {
             type: String,
-            defualt: ''
-        }
-    },
-    inject: {
-        RadioGroup: {
             default: ''
         }
     },
-    computed: {
-        model: {
+    setup() {
+        const RadioGroup = inject('RadioGroup');
+
+        const modelValue = computed({
             get() {
-                return this.isGroup ? this.RadioGroup.value : this.value
+                return RadioGroup ? RadioGroup.modelValue : this.value;
             },
             set(value) {
-                // 触发父组件的input事件
-                this.isGroup ? this.RadioGroup.$emit('input', value) : this.$emit('input', value)
+                if (RadioGroup) {
+                    RadioGroup.$emit('update:modelValue', value);
+                } else {
+                    this.$emit('update:value', value);
+                }
             }
-        },
-        // 用于判断radio是否被radioGroup包裹
+        });
+
+        return {
+            modelValue
+        };
+    },
+    computed: {
         isGroup() {
-            return !!this.RadioGroup
+            return !!inject('RadioGroup');
         }
     }
-}
+};
 </script>
-<style lang="scss" scoped>
+
+<style scoped>
 .yzh-radio {
     color: #606266;
     font-weight: 500;
@@ -61,9 +70,7 @@ export default {
     outline: none;
     font-size: 14px;
     margin-right: 30px;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
+    user-select: none;
 
     .yzh-radio_input {
         white-space: nowrap;
@@ -115,11 +122,9 @@ export default {
     .yzh-radio_label {
         font-size: 14px;
         padding-left: 10px;
-        ;
     }
 }
 
-// 选中的样式
 .yzh-radio.is-checked {
     .yzh-radio_input {
         .yzh-radio_inner {

@@ -1,22 +1,29 @@
-import Vue from 'vue'
-import App from './App.vue'
-import yzhButton from './components/button.vue'
-import yzhDialog from './components/dialog.vue'
-import yzhInput from './components/input.vue'
-import yzhSwitch from './components/switch.vue'
-import yzhRadio from './components/radio.vue'
-import yzhRadioGroup from './components/radio-group.vue'
-import yzhCheckBox from './components/checkbox.vue'
-import './assets/fonts/iconfont.css'
-Vue.config.productionTip = false
-Vue.component(yzhButton.name, yzhButton)
-Vue.component(yzhDialog.name, yzhDialog)
-Vue.component(yzhInput.name, yzhInput)
-Vue.component(yzhSwitch.name, yzhSwitch)
-Vue.component(yzhRadio.name, yzhRadio)
-Vue.component(yzhRadioGroup.name, yzhRadioGroup)
-Vue.component(yzhCheckBox.name, yzhCheckBox)
+import { createApp } from 'vue';
+import App from './App.vue';
+import yzhButton from './components/button.vue';
+import yzhDialog from './components/dialog.vue';
+import yzhInput from './components/input.vue';
+import yzhSwitch from './components/switch.vue';
+import yzhRadio from './components/radio.vue';
+import yzhRadioGroup from './components/radio-group.vue';
+import yzhCheckBox from './components/checkbox.vue';
+import yzhCheckboxGroup from './components/checkBoxGroup.vue';
+import yzhForm from './components/form.vue';
+import yzhFormItem from './components/form-item.vue';
 
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+import './assets/fonts/iconfont.css';
+
+const app = createApp(App);
+
+app.component('yzhButton', yzhButton);
+app.component('yzhDialog', yzhDialog);
+app.component('yzhInput', yzhInput);
+app.component('yzhSwitch', yzhSwitch);
+app.component('yzhRadio', yzhRadio);
+app.component('yzhRadioGroup', yzhRadioGroup);
+app.component('yzhCheckBox', yzhCheckBox);
+app.component('yzhCheckboxGroup', yzhCheckboxGroup);
+app.component('yzhForm', yzhForm);
+app.component('yzhFormItem', yzhFormItem);
+
+app.mount('#app');
