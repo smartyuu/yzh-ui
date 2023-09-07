@@ -69,6 +69,16 @@
     <div id="switch-container">
       <yzh-switch v-model="active" :statue="'开'" :transStatue="'关'"></yzh-switch>
     </div>
+    <div>
+      <yzh-form :model="model">
+        <yzh-form-item label="用户名">
+          <yzh-input v-model="model.username" />
+        </yzh-form-item>
+        <yzh-form-item label="open">
+          <yzh-switch v-model="model.active" />
+        </yzh-form-item>
+      </yzh-form>
+    </div>
   </div>
 </template>
 
@@ -82,6 +92,10 @@ export default {
     const username2 = ref('');
     const password = ref('');
     const active = ref(false);
+    const model = ref({
+      username: '',
+      active: true
+    })
     function fn1() {
       console.log('Button clicked');
     }
@@ -97,7 +111,8 @@ export default {
       password,
       active,
       fn1,
-      close
+      close,
+      model
     };
   }
 }

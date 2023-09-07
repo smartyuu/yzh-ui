@@ -16,6 +16,10 @@ export default defineComponent({
         label: {
             type: String,
             default: ''
+        },
+        model: {
+            type: Object,
+            required: true
         }
     },
     setup() {
