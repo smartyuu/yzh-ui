@@ -1,37 +1,26 @@
 <template>
     <div class="yzh-form-item">
-        <label class="yzh-form-item_label" :style="{ width: Form.labelWidth }">{{ label }}</label>
-        <div class="yzh-form-item_content">
+        <label class="yzh-form-item_label">{{ props.label }}</label>
+        <div class="yzh-form-item_content" :style="{ width: yzhForm.labelWidth }">
             <slot></slot>
         </div>
     </div>
 </template>
+<script setup>
 
-<script>
-import { defineComponent, inject } from 'vue';
+import { defineProps, inject } from 'vue';
 
-export default defineComponent({
-    name: 'yzhFormItem',
-    props: {
-        label: {
-            type: String,
-            default: ''
-        },
-        model: {
-            type: Object,
-            required: true
-        }
+const props = defineProps({
+    label: {
+        type: String,
+        default: '',
     },
-    setup() {
-        const Form = inject('Form');
-        return {
-            Form
-        };
-    }
 });
+
+const yzhForm = inject('yzhForm');
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .yzh-form-item {
     margin-bottom: 25px;
 

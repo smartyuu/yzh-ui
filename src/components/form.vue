@@ -5,30 +5,30 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, provide } from 'vue';
 
 export default defineComponent({
-    name: 'yzhForm',
-    provide() {
-        return {
-            Form: this
-        };
-    },
+    name: 'YzhForm',
     props: {
         model: {
             type: Object,
-            required: true
+            required: true,
         },
         labelWidth: {
             type: String,
-            default: '80px'
-        }
-    }
+            default: '80px',
+        },
+    },
+    setup(props) {
+        provide('yzhForm', props);
+
+        return {};
+    },
 });
 </script>
 
-<style lang="scss" scoped>
-// .yzh-form {
-//     // 样式
-// }
+<style scoped>
+.yzh-form {
+    /* 样式 */
+}
 </style>

@@ -70,7 +70,7 @@
       <yzh-switch v-model="active" :statue="'开'" :transStatue="'关'"></yzh-switch>
     </div>
     <div>
-      <yzh-form :model="model">
+      <yzh-form :model="model" label-width="300px">
         <yzh-form-item label="用户名">
           <yzh-input v-model="model.username" />
         </yzh-form-item>
