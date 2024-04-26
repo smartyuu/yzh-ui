@@ -11,6 +11,8 @@ import yzhCheckboxGroup from './components/checkBoxGroup.vue';
 import yzhForm from './components/form.vue';
 import yzhFormItem from './components/form-item.vue';
 
+import moment from 'moment';
+import 'moment/locale/zh-cn';
 import './assets/fonts/iconfont.css';
 
 const app = createApp(App);
@@ -25,5 +27,6 @@ app.component('yzhCheckBox', yzhCheckBox);
 app.component('yzhCheckboxGroup', yzhCheckboxGroup);
 app.component('yzhForm', yzhForm);
 app.component('yzhFormItem', yzhFormItem);
+moment.locale('zh-cn');
 
 app.mount('#app');
